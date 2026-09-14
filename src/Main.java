@@ -2,8 +2,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
 
@@ -11,9 +9,12 @@ public class Main {
 
         funcionarios.addAll(addFuncionarios());
 
+        funcionarios.removeIf(f -> f.getNome().contains("João"));
+
+        funcionarios.forEach(System.out::println);
     }
 
-    private   static List<Funcionario> addFuncionarios() {
+    private static List<Funcionario> addFuncionarios() {
         return List.of(
                 new Funcionario("Maria", LocalDate.of(2000, 10, 18), BigDecimal.valueOf(2009.44), "Operador"),
                 new Funcionario("João", LocalDate.of(1990, 5, 12), BigDecimal.valueOf(2284.38), "Operador"),
