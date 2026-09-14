@@ -3,6 +3,10 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Main {
+
+    // 10%
+    public static final BigDecimal TAXA_AUMENTO =BigDecimal.valueOf(0.10);
+
     public static void main(String[] args) {
 
         List<Funcionario> funcionarios = new ArrayList<>();
@@ -11,10 +15,22 @@ public class Main {
 
         funcionarios.removeIf(f -> f.getNome().contains("João"));
 
-        funcionarios.forEach(System.out::println);
+        imprimirLista(funcionarios);
+
+        aumentarSalarios(funcionarios);
+
+        imprimirLista(funcionarios);
     }
 
-    private static List<Funcionario> addFuncionarios() {
+    public static void imprimirLista(List<Funcionario> lista) {
+        lista.forEach(System.out::println);
+    }
+
+    public static void aumentarSalarios(List<Funcionario> lista) {
+        lista.forEach(f -> f.darAumento(TAXA_AUMENTO));
+    }
+
+    public static List<Funcionario> addFuncionarios() {
         return List.of(
                 new Funcionario("Maria", LocalDate.of(2000, 10, 18), BigDecimal.valueOf(2009.44), "Operador"),
                 new Funcionario("João", LocalDate.of(1990, 5, 12), BigDecimal.valueOf(2284.38), "Operador"),

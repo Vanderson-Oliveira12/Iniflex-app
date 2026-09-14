@@ -20,16 +20,13 @@ public class Funcionario extends Pessoa {
         return salario;
     }
 
-    public void setSalario(BigDecimal salario) {
-        this.salario = salario;
-    }
-
     public String getFuncao() {
         return funcao;
     }
 
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
+    public void darAumento(BigDecimal taxaAumento) {
+        BigDecimal aumento = salario.multiply(taxaAumento);
+        this.salario = salario.add(aumento);
     }
 
     @Override
