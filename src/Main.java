@@ -1,5 +1,6 @@
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,17 @@ public class Main {
         var funcionariosAgrupados = funcionariosPorFuncao(funcionarios);
 
 //        imprimirListaPorFuncao(funcionariosAgrupados);
+
+        System.out.println("Aniversariantes mês 10 e 12 \n");
+
+       var anivesariantesDoMes = funcionarios.stream().filter(f -> {
+           var mesNascimento = f.getDataNascimento().getMonth();
+           return mesNascimento == Month.OCTOBER || mesNascimento == Month.DECEMBER;
+       }).toList();
+
+        imprimirLista(anivesariantesDoMes);
+
+
     }
 
     public static void imprimirListaPorFuncao(Map<String, List<Funcionario>> agrupados) {
