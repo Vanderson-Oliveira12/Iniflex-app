@@ -38,7 +38,6 @@ public class Funcionario extends Pessoa {
         var dataFormatada = getDataNascimento().format(regraFormatoData);
         var salarioFormatado = regraFormatoSalario.format(getSalario());
 
-        sb.append("---------------------------").append("\n");
         sb.append("Dados do funcionário \n");
         sb.append("Nome: ").append(getNome()).append("\n");
         sb.append("Data Nascimento: ").append(dataFormatada).append("\n");

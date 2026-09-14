@@ -1,6 +1,7 @@
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -8,22 +9,38 @@ public class Main {
     public static final BigDecimal TAXA_AUMENTO =BigDecimal.valueOf(0.10);
 
     public static void main(String[] args) {
-
         List<Funcionario> funcionarios = new ArrayList<>();
 
         funcionarios.addAll(addFuncionarios());
 
         funcionarios.removeIf(f -> f.getNome().contains("João"));
 
-        imprimirLista(funcionarios);
+//        imprimirLista(funcionarios);
 
         aumentarSalarios(funcionarios);
 
-        imprimirLista(funcionarios);
+//        imprimirLista(funcionarios);
+
+        var funcionariosAgrupados = funcionariosPorFuncao(funcionarios);
+
+//        imprimirListaPorFuncao(funcionariosAgrupados);
     }
 
-    public static void imprimirLista(List<Funcionario> lista) {
-        lista.forEach(System.out::println);
+    public static void imprimirListaPorFuncao(Map<String, List<Funcionario>> agrupados) {
+        agrupados.forEach((funcao, valor) -> System.out.println(funcao + " -> " + valor));
+    }
+
+    public static Map<String, List<Funcionario>> funcionariosPorFuncao(List<Funcionario> funcionarios) {
+         return funcionarios
+                .stream().collect(Collectors.groupingBy(Funcionario::getFuncao));
+    }
+
+    public static <T> void imprimirLista(Collection<T> itens) {
+        if (itens == null) {
+            throw new IllegalArgumentException("A coleção não pode ser nula");
+        }
+
+        itens.forEach(System.out::println);
     }
 
     public static void aumentarSalarios(List<Funcionario> lista) {
