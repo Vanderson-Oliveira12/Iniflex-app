@@ -1,6 +1,7 @@
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,30 +17,50 @@ public class Main {
 
         funcionarios.removeIf(f -> f.getNome().contains("João"));
 
-//        imprimirLista(funcionarios);
+    //  imprimirLista(funcionarios);
 
-        aumentarSalarios(funcionarios);
+       aumentarSalarios(funcionarios);
 
-//        imprimirLista(funcionarios);
+    //   imprimirLista(funcionarios);
 
-        var funcionariosAgrupados = funcionariosPorFuncao(funcionarios);
+    //   imprimirListaPorFuncao(funcionarios);
 
-//        imprimirListaPorFuncao(funcionariosAgrupados);
+    //    imprimirAniversariantes(funcionarios, List.of(Month.OCTOBER,Month.DECEMBER));
 
-        System.out.println("Aniversariantes mês 10 e 12 \n");
-
-       var anivesariantesDoMes = funcionarios.stream().filter(f -> {
-           var mesNascimento = f.getDataNascimento().getMonth();
-           return mesNascimento == Month.OCTOBER || mesNascimento == Month.DECEMBER;
-       }).toList();
-
-        imprimirLista(anivesariantesDoMes);
-
+    //     imprimirMaisVelho(funcionarios);
 
     }
 
-    public static void imprimirListaPorFuncao(Map<String, List<Funcionario>> agrupados) {
-        agrupados.forEach((funcao, valor) -> System.out.println(funcao + " -> " + valor));
+    public  static void imprimirAniversariantes(List<Funcionario> funcionarios, List<Month> months) {
+        System.out.println("Aniversariantes mês 10 e 12 \n");
+
+        var anivesariantesDoMes = filtrarAnivesariantesPorMes(funcionarios, months);
+
+        imprimirLista(anivesariantesDoMes);
+    }
+
+    public static void imprimirMaisVelho(List<Funcionario> funcionarios) {
+        var hoje = LocalDate.now();
+        var maisVelho = funcionarios.stream()
+                .min(Comparator.comparing(Funcionario::getDataNascimento))
+                .orElse(null);
+
+        int idade = Period.between(maisVelho.getDataNascimento(), hoje).getYears();
+
+        System.out.println("Nome: " + maisVelho.getNome() + "\n" + "Idade: " + idade + " anos");
+    }
+
+    public static void imprimirListaPorFuncao(List<Funcionario> funcionarios) {
+        var funcionariosAgrupados = funcionariosPorFuncao(funcionarios);
+
+        funcionariosAgrupados.forEach((funcao, valor) -> System.out.println(funcao + " -> " + valor));
+    }
+
+    public static List<Funcionario> filtrarAnivesariantesPorMes(List<Funcionario> funcionarios, List<Month> meses) {
+        return funcionarios.stream().filter(f -> {
+            var mesNascimento = f.getDataNascimento().getMonth();
+            return meses.contains(mesNascimento);
+        }).toList();
     }
 
     public static Map<String, List<Funcionario>> funcionariosPorFuncao(List<Funcionario> funcionarios) {
