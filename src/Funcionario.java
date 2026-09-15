@@ -32,11 +32,9 @@ public class Funcionario extends Pessoa {
     @Override
     public String toString() {
         var sb = new StringBuilder();
-        var regraFormatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        var regraFormatoSalario = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
-        var dataFormatada = getDataNascimento().format(regraFormatoData);
-        var salarioFormatado = regraFormatoSalario.format(getSalario());
+        var dataFormatada = Utils.formatarDataDDMMYYYY(getDataNascimento());
+        var salarioFormatado = Utils.formatarDinheiroBR(getSalario());
 
         sb.append("Dados do funcionário \n");
         sb.append("Nome: ").append(getNome()).append("\n");

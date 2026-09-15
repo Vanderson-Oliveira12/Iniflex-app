@@ -9,6 +9,7 @@ public class Main {
 
     // 10%
     public static final BigDecimal TAXA_AUMENTO =BigDecimal.valueOf(0.10);
+    public static final BigDecimal SALARIO_MINIMO = BigDecimal.valueOf(1212);
 
     public static void main(String[] args) {
         List<Funcionario> funcionarios = new ArrayList<>();
