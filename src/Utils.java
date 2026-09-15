@@ -6,15 +6,15 @@ import java.util.Locale;
 
 public final class Utils {
 
-   public static String formatarDataDDMMYYYY(LocalDate data) {
-       var regraFormatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+   public static String formatarDataBR(LocalDate data) {
+       var formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-       return data.format(regraFormatoData);
+       return data.format(formatador);
    }
 
-   public static String formatarDinheiroBR(BigDecimal valor) {
-       var regraFormatoSalario = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+   public static String formatarMoedaBR(BigDecimal valor) {
+       var formatador = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
-       return regraFormatoSalario.format(valor);
+       return formatador.format(valor);
    }
 }

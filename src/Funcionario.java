@@ -1,9 +1,5 @@
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.Locale;
 
 public class Funcionario extends Pessoa {
 
@@ -33,8 +29,8 @@ public class Funcionario extends Pessoa {
     public String toString() {
         var sb = new StringBuilder();
 
-        var dataFormatada = Utils.formatarDataDDMMYYYY(getDataNascimento());
-        var salarioFormatado = Utils.formatarDinheiroBR(getSalario());
+        var dataFormatada = Utils.formatarDataBR(getDataNascimento());
+        var salarioFormatado = Utils.formatarMoedaBR(getSalario());
 
         sb.append("Dados do funcionário \n");
         sb.append("Nome: ").append(getNome()).append("\n");

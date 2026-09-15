@@ -32,6 +32,24 @@ public class Main {
 
 //        imprimirTotalSalarios(funcionarios);
 
+//        imprimirOrdemAlfabetica(funcionarios);
+
+    }
+
+    public static  void imprimirOrdemAlfabetica(List<Funcionario> funcionarios) {
+        var ordenados =  funcionarios.stream()
+                .sorted(Comparator.comparing(Funcionario::getNome))
+                .toList();
+
+        System.out.println("\n");
+        System.out.println("Em ordem alfabética");
+        System.out.println(ordenados);
+    }
+
+    public static void imprimirSalariosMinimos(List<Funcionario> funcionarios) {
+        var filtrados = funcionarios.stream()
+                .filter(f -> f.getSalario().compareTo(SALARIO_MINIMO) < 0)
+                .toList();
     }
 
     public static void imprimirTotalSalarios(List<Funcionario> funcionarios) {
