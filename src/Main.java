@@ -9,31 +9,29 @@ import java.util.stream.Collectors;
 public class Main {
 
     // 10%
-    public static final BigDecimal TAXA_AUMENTO =BigDecimal.valueOf(0.10);
+    private static final BigDecimal TAXA_AUMENTO = BigDecimal.valueOf(0.10);
     private static final BigDecimal SALARIO_MINIMO = BigDecimal.valueOf(1212);
 
     public static void main(String[] args) {
-        List<Funcionario> funcionarios = new ArrayList<>();
+        List<Funcionario> funcionarios = new ArrayList<>(criarFuncionarios());
 
-        funcionarios.addAll(addFuncionarios());
+        funcionarios.removeIf(funcionario -> funcionario.getNome().equals("João"));
 
-        funcionarios.removeIf(f -> f.getNome().contains("João"));
-
-    //  imprimirLista(funcionarios);
+      imprimirLista(funcionarios);
 
        aumentarSalarios(funcionarios);
 
-    //   imprimirLista(funcionarios);
+        imprimirLista(funcionarios);
 
-    //   imprimirListaPorFuncao(funcionarios);
+        imprimirListaPorFuncao(funcionarios);
 
-    //    imprimirAniversariantes(funcionarios, List.of(Month.OCTOBER,Month.DECEMBER));
+        imprimirAniversariantes(funcionarios, List.of(Month.OCTOBER,Month.DECEMBER));
 
-    //     imprimirMaisVelho(funcionarios);
+        imprimirMaisVelho(funcionarios);
 
-//        imprimirTotalSalarios(funcionarios);
+        imprimirTotalSalarios(funcionarios);
 
-//        imprimirOrdemAlfabetica(funcionarios);
+        imprimirOrdemAlfabetica(funcionarios);
 
         imprimirSalariosMinimos(funcionarios);
 
@@ -51,16 +49,16 @@ public class Main {
 
     public static void imprimirSalariosMinimos(List<Funcionario> funcionarios) {
 
-        funcionarios.stream().forEach(funcionario -> {
+        funcionarios.forEach(funcionario -> {
 
             var casasDecimais = 2;
             var salarioAtual = funcionario.getSalario();
-            var qtSalariosMinimos = salarioAtual.divide(SALARIO_MINIMO, casasDecimais, RoundingMode.HALF_UP);
+            var quantidadeSalariosMinimos = salarioAtual.divide(SALARIO_MINIMO, casasDecimais, RoundingMode.HALF_UP);
 
             System.out.println(
                     "Funcionário: " + funcionario.getNome() +
                             "\nSalário: " + Utils.formatarMoedaBR(salarioAtual) +
-                            "\nGanha: " + qtSalariosMinimos + " salários mínimos\n"
+                            "\nGanha: " + quantidadeSalariosMinimos + " salários mínimos\n"
             );
         });
     }
@@ -128,7 +126,7 @@ public class Main {
         lista.forEach(f -> f.darAumento(TAXA_AUMENTO));
     }
 
-    public static List<Funcionario> addFuncionarios() {
+    private static List<Funcionario> criarFuncionarios() {
         return List.of(
                 new Funcionario("Maria", LocalDate.of(2000, 10, 18), BigDecimal.valueOf(2009.44), "Operador"),
                 new Funcionario("João", LocalDate.of(1990, 5, 12), BigDecimal.valueOf(2284.38), "Operador"),
