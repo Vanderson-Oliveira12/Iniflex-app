@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
@@ -9,7 +10,7 @@ public class Main {
 
     // 10%
     public static final BigDecimal TAXA_AUMENTO =BigDecimal.valueOf(0.10);
-    public static final BigDecimal SALARIO_MINIMO = BigDecimal.valueOf(1212);
+    private static final BigDecimal SALARIO_MINIMO = BigDecimal.valueOf(1212);
 
     public static void main(String[] args) {
         List<Funcionario> funcionarios = new ArrayList<>();
@@ -34,6 +35,8 @@ public class Main {
 
 //        imprimirOrdemAlfabetica(funcionarios);
 
+        imprimirSalariosMinimos(funcionarios);
+
     }
 
     public static  void imprimirOrdemAlfabetica(List<Funcionario> funcionarios) {
@@ -47,9 +50,19 @@ public class Main {
     }
 
     public static void imprimirSalariosMinimos(List<Funcionario> funcionarios) {
-        var filtrados = funcionarios.stream()
-                .filter(f -> f.getSalario().compareTo(SALARIO_MINIMO) < 0)
-                .toList();
+
+        funcionarios.stream().forEach(funcionario -> {
+
+            var casasDecimais = 2;
+            var salarioAtual = funcionario.getSalario();
+            var qtSalariosMinimos = salarioAtual.divide(SALARIO_MINIMO, casasDecimais, RoundingMode.HALF_UP);
+
+            System.out.println(
+                    "Funcionário: " + funcionario.getNome() +
+                            "\nSalário: " + Utils.formatarMoedaBR(salarioAtual) +
+                            "\nGanha: " + qtSalariosMinimos + " salários mínimos\n"
+            );
+        });
     }
 
     public static void imprimirTotalSalarios(List<Funcionario> funcionarios) {
@@ -57,7 +70,7 @@ public class Main {
                 .map(Funcionario::getSalario)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        System.out.println("Total Salários: " + totalSalarios);
+        System.out.println("Total Salários: " + Utils.formatarMoedaBR(totalSalarios));
     }
 
     public  static void imprimirAniversariantes(List<Funcionario> funcionarios, List<Month> months) {
