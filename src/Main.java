@@ -29,6 +29,16 @@ public class Main {
 
     //     imprimirMaisVelho(funcionarios);
 
+//        imprimirTotalSalarios(funcionarios);
+
+    }
+
+    public static void imprimirTotalSalarios(List<Funcionario> funcionarios) {
+        var totalSalarios = funcionarios.stream()
+                .map(Funcionario::getSalario)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        System.out.println("Total Salários: " + totalSalarios);
     }
 
     public  static void imprimirAniversariantes(List<Funcionario> funcionarios, List<Month> months) {
@@ -42,12 +52,18 @@ public class Main {
     public static void imprimirMaisVelho(List<Funcionario> funcionarios) {
         var hoje = LocalDate.now();
         var maisVelho = funcionarios.stream()
-                .min(Comparator.comparing(Funcionario::getDataNascimento))
-                .orElse(null);
+                .min(Comparator.comparing(Funcionario::getDataNascimento));
 
-        int idade = Period.between(maisVelho.getDataNascimento(), hoje).getYears();
+        if (maisVelho.isEmpty()) {
+            System.out.println("Nenhum funcionário encontrado.");
+            return;
+        }
 
-        System.out.println("Nome: " + maisVelho.getNome() + "\n" + "Idade: " + idade + " anos");
+        var funcionario = maisVelho.get();
+
+        int idade = Period.between(funcionario.getDataNascimento(), hoje).getYears();
+
+        System.out.println("Nome: " + funcionario.getNome() + "\n" + "Idade: " + idade + " anos");
     }
 
     public static void imprimirListaPorFuncao(List<Funcionario> funcionarios) {
